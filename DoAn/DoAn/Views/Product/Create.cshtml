@@ -1,0 +1,42 @@
+﻿@model DoAn.Models.Product
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<div class="col d-flex justify-content-center">
+    <h2>Create Product</h2>
+</div>
+    <section class="container my-2 rounded-circle w-50 p-2">
+        <form action="/Product/Create" method="post">
+            <label for="ProductName">  Product Name</label>
+            <input type="text" name="ProductName" placeholder="Name..." class="form-control" />
+            <label for="Price">  Price</label>
+            <input type="text" name="Price" placeholder="Price..." class="form-control" />
+            <label for="DateOfPurchase">  Date up load</label>
+            <input type="date" name="DateOfPurchase" placeholder="Date..." class="form-control" />
+            <label for="Image"> Link image</label>
+            <input type="text" name="Image" placeholder="Link image..." class="form-control" />
+            <label for="Description">  Description</label>
+            <input type="text" name="AvailabilityStatus" placeholder="Description..." class="form-control" />
+            <label for="BrandId">  Brand Name</label>
+            <select name="BrandId" placeholder="BrandId..." class="form-control">
+                @foreach (var item in ViewBag.brands)
+                {
+                    <option value="@item.BrandId">@item.BrandName</option>
+                }
+            </select>
+            <label for="CatelogiesName">  Catelogies Name</label>
+            <select name="CatelogyId" placeholder="CatelogyId..." class="form-control">
+                @foreach (var item in ViewBag.categories)
+                {
+                    <option value="@item.CatelogyId">@item.CatelogyName</option>
+                }
+            </select>
+            <br />
+            <div class="d-grid gap-2 col-3 mx-auto">
+                <button class="btn btn-outline-success">Sumbit</button>
+            </div>
+        </form>
+    </section>
+

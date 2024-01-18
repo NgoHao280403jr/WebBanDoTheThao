@@ -1,0 +1,481 @@
+﻿@{
+    var userName = Context.Request.Cookies["auth"];
+    var role = Context.Request.Cookies["role"]?.Value;
+    var userId = Context.Request.Cookies["Id"];
+     
+}
+@{
+    var myModel = @ViewBag.IdUser;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/35c6f8aae0.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.11.0.js"></script>
+    <link href="~/Css/Home-Index.css" rel="stylesheet" />
+    <link href="~/Css/Home.css" rel="stylesheet" />
+    <link href="~/Css/lightslider.css" rel="stylesheet" />
+    <script src="~/Js/JavaScript.js"></script>
+    <title>@ViewBag.Title</title>
+    <style>
+        th {
+            padding-right: 200px; /* Điều chỉnh giá trị padding theo ý muốn */
+        }
+
+        .contact-icons {
+            display: none
+        }
+
+        .navbar-toggler {
+            background-color: #64b59c
+        }
+
+        form {
+            border-radius: 10px;
+            box-shadow: 2px 6px 100px #c0f6c7;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+
+        .container button {
+            background-color: #739471;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 50%;
+            margin: 50px auto;
+            border-radius: 5px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .container button:hover {
+                opacity: 0.8;
+                background-color: #28AF6D
+            }
+
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+            text-align: center;
+            display: inline-block;
+            color: white;
+            border-radius: 5px;
+        }
+
+            .cancelbtn:hover {
+                opacity: 0.8;
+            }
+
+
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+
+        .container {
+            padding: 16px;
+            border-radius: 0px 0px 20px 20px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+
+        .modal {
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            padding-top: 60px;
+        }
+
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto;
+            border: 1px solid #888;
+            border-radius: 20px 20px 20px 20px;
+            width: 50%;
+        }
+
+
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: red;
+                cursor: pointer;
+            }
+
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .custom-form {
+            width: 50px
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <div class="upperHeader">
+            <ul>
+                <li class="upper-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>0798798465</div>
+                </li>
+                <li class="upper-item">
+                    <i class="fa-solid fa-house"></i>
+                    <div>140 Lê Trọng Tấn</div>
+                </li>
+                <li class="upper-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>abc@gmail.com</div>
+                </li>
+                @if (userName == null)
+                {
+                    <li class="nav-item">
+                        <a onclick="document.getElementById('id01').style.display='block'" class="nav-link">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/User/Register">Register</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/User/Logout">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <b>Hello @userName.Value</b>
+                    </li>
+                }
+            </ul>
+            @if (userId == null)
+            {
+                <div class="contact-icons">
+                    <div class="page-icon.">
+                        <a href="/Home/ChuaLogIn">
+                            <i class="fa-solid fa-cart-shopping"></i>Giỏ hàng
+                        </a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="contact-icons">
+                    <div class="page-icon.">
+                        <a href="/Cart/Index?IdUser=@userId.Value">
+                            <i class="fa-solid fa-cart-shopping"></i>Giỏ hàng
+                        </a>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <nav class="navbar navbar-expand-lg  " data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><div class="logo"><img src="/image/logo.jpg" class="img-thumbnail" alt="logo sport" style="width: 3rem; height: 3rem;" /></div></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active text-dark" aria-current="page" href="/Home/Index">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Sẩn phẩm
+                            </a>
+                            <ul class="dropdown-menu text-dark">
+                                <li><a class="dropdown-item text-info" href="/Product/Index">Tổng sản phẩm</a></li>
+                                <li><a class="dropdown-item text-info" href="/Product/sbar1/1">Áo</a></li>
+                                <li><a class="dropdown-item text-info" href="/Product/sbar1/2">Quần</a></li>
+                                <li><a class="dropdown-item text-info" href="/Product/sbar1/3">Tất</a></li>
+                                <li><a class="dropdown-item text-info" href="/Product/sbar1/4">Ba lô</a></li>
+                                <li><a class="dropdown-item text-info" href="/Product/sbar1/5">Giày</a></li>
+                            </ul>
+                        </li>
+                        @if (role != null && role.ToLower() == "admin")
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link active text-dark" aria-current="page" href="/Product/Create">Thêm sản phẩm</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active text-dark" aria-current="page" href="/User/Index">Thông tin User</a>
+                            </li>
+                        }
+
+
+                    </ul>
+                    <form class="d-flex flex-row" action="/Product/Index">
+                        <input class="form-control me-6" type="search" placeholder="Search" aria-label="Search" name="search">
+                        <button style="margin-left:20px" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="baner">
+        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/image/banner4.jpg" class="img-fluid" alt="banner" style="width:100%;height:700px">
+                </div>
+                <div class="carousel-item">
+                    <img src="/image/banner2.jpeg" class="img-fluid" alt="banner" style="width:100%;height:700px">
+
+                </div>
+                <div class="carousel-item">
+                    <img src="/image/banner3.jpg" class="img-fluid" alt="banner" style="width: 100%; height: 700px ">
+
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="container-fluid ">
+        <div>
+            @RenderBody()
+        </div>
+        <div id="id01" class="modal">
+
+            <form class="modal-content animate" action="/User/Login" method="post">
+                <div class="imgcontainer">
+                    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                    <img src="~/image/0af3c9613761d2d2394d99312aeba397.gif" alt="Avatar" class="avatar">
+                </div>
+
+                <div class="container">
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="Username" required>
+
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="Password" required>
+                    <button type="submit">Login</button>
+                </div>
+
+                <div class="container" style="background-color:#f1f1f1">
+
+                    <span class="psw">Forgot <a href="#">password?</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br />
+    <footer>
+
+        <div class="p-3 mb-2 bg-dark text-white">
+            <div class="row">
+                <div class="col-md-9">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>FIND A STORE</th>
+                                <th>GET HELP</th>
+                                <th>ABOUT MONA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SIGN UP FOR EMAIL</td>
+                                <td>Order Status</td>
+                                <td>News</td>
+                            </tr>
+                            <tr>
+                                <td>BECOME A MEMBER</td>
+                                <td>Delivery</td>
+                                <td>Careers</td>
+                            </tr>
+                            <tr>
+                                <td>SITE FEEDBACK</td>
+                                <td>Returns</td>
+                                <td>Investors</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Payment Options</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Contact Us</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-3">
+                    <div class="contact-icons">
+                        <div class="page-icon">
+                            <a href="#">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                        </div>
+                        <div class="page-icon">
+                            <a href="#">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                        <div class="page-icon">
+                            <a href="#">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="col d-flex justify-content-center">
+                Liên hệ:Khoa Công nghệ Thông tin - Trường Đại học Công thương TP.HCM Link: fanpage và link: youtube
+
+            </div>
+            <div class="col d-flex justify-content-center">
+                Địa chỉ:140 Lê Trọng Tấn, Phường Tây Thạnh, Quận Tân Phú,Tp.HCM. DT:(028)38161673(ext) Mail:kcntt@hufi.edu.vn
+            </div>
+
+        </div>
+
+    </footer>
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop()) {
+                    $('header').addClass('sticky');
+                }
+                else {
+                    $('header').addClass('sticky');
+                }
+            });
+
+
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#lightSlider").lightSlider({
+                auto: true,
+                loop: true,
+
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#lightSlider1").lightSlider({
+                auto: true,
+                loop: true,
+
+            });
+        });
+    </script>
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+        // Get the modal
+        var modal1 = document.getElementById('id02');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal1) {
+                modal1.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+        // Get the modal
+        var modal1 = document.getElementById('id03');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal1) {
+                modal1.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+        function updateFormSubmit() {
+            // Lấy form và submit nó
+            var form = document.getElementById('updateForm');
+            form.submit();
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+</body>
+</html>

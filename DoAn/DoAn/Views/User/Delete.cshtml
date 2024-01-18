@@ -1,0 +1,33 @@
+﻿@model DoAn.Models.User
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2 class="col d-flex justify-content-center">Delete</h2>
+<form class="modal-content animate" action="/User/Delete/@Model.UserId" method="post">
+    <div class="container">
+        <p>Bạn có muốn xóa User này!</p>
+        <input type="hidden" name="UserId" value="@Model.UserId" />
+        <table class="table">
+            <tr>
+                <th>Tên người dùng:</th>
+                <td>@Model.Username</td>
+            </tr>
+
+            <tr>
+                <th>Mô tả:</th>
+                <td>@Model.EmailAddress</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+        <div class="d-grid gap-2 col-6 d-md-flex mx-auto">
+            <button type="submit" class="btn btn-outline-danger">Delete</button>
+            <button type="button" class="btn btn-outline-warning"><a href="/User/Index">Cancel</a></button>
+        </div>
+    </div>
+</form>

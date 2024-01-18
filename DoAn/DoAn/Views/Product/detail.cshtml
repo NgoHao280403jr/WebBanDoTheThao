@@ -1,0 +1,130 @@
+﻿@model DoAn.Models.Product
+
+@{
+    ViewBag.Title = "detail";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@{
+    var role = Context.Request.Cookies["role"]?.Value;
+    var userId = Context.Request.Cookies["Id"];
+}
+<br />
+<div class="row">
+    <div class="col-5">
+        <div class="slide-img-dt" style="width:500px;height:550px">
+            <img alt="img" class="rounded" style="width:100%;height:100%" src="~/image/@Model.Image" />
+        </div>
+    </div>
+    <div class="col-7">
+        <p class="fs-2 fw-medium"><a href="/Product/sbar/@Model.BrandId" title="">@Model.Brand.BrandName</a></p>
+        <span class="type" style="text-decoration:underline; text-transform: uppercase; color: #12283E; margin-right: 10px"><a href="/Product/sbar1/@Model.CatelogyId" title="">@Model.Category.CatelogyName</a></span>
+        <p class="fs-3 fw-normal">@Model.ProductName</p>
+        <p class="fs-3 fw-light"><strong>Giá:</strong>@Model.Price₫</p>
+        <p class="fs-3 fw-light"><strong>Ngày Up Load:</strong> @Model.DateOfPurchase.Value.ToString("dd/MM/yyyy")</p>
+        <p class="fs-3 fw-light"><strong>Mô tả:</strong> @Model.AvailabilityStatus</p>
+        @if (Model.Size == null)
+        {
+            <p class="fs-3 fw-light"><strong>Size: </strong>Free Size</p>
+
+        }
+        else
+        {
+            <p class="fs-3 fw-light"><strong>Size: </strong>@Model.Size</p>
+
+        }
+        @if (role != null && role.ToLower() == "admin")
+        {
+            <a href="/Product/Edit/@Model.ProductID" class="btn btn-primary">Sửa thông tin</a>
+            <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;" class="btn btn-outline-danger">Delete</button>
+        }
+        else if(role != null && role.ToLower() == "user")
+        {
+            <button class="btn btn-outline-info"> @Html.ActionLink("Thêm giỏ hàng", "Add", "Cart", new { id = Model.ProductID , idUser=userId.Value },null)</button>
+            @*<a href="/Cart/Add?id=@Model.ProductID?idUser=@userId.Value" class="btn btn-primary">Thêm vào giỏ hàng</a>*@
+        }
+
+
+
+    </div>
+</div>
+<div id="id02" class="modal">
+
+    <form class="modal-content animate" action="/Product/Delete/@Model.ProductID" method="post">       
+        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <div class="container">
+            <p>Bạn có muốn xóa sản phẩm!</p>
+            <input type="hidden" name="Id" value="@Model.ProductID" />
+            <table class="table">
+                <tr>
+                    <th>Tên sản phẩm:</th>
+                    <td>@Model.ProductName</td>
+                </tr>
+
+                <tr>
+                    <th>Mô tả:</th>
+                    <td>@Model.AvailabilityStatus</td>
+                </tr>
+
+            </table>
+        </div>
+        
+        <div class="container" style="background-color:#f1f1f1">
+            <div class="d-grid gap-2 col-6 d-md-flex mx-auto">
+                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                <button type="button" onclick="document.getElementById('id02').style.display='none'" class="btn btn-outline-warning">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+<br />
+<br />
+<br />
+<p class="text-center fw-normal fs-6">Quy định đổi trả</p>
+<hr />
+<div class="description">
+    <p>QUY ĐỊNH ĐỔI TRẢ HÀNG TẠI <b>Website</b></p>
+    <p><b><em><span style="text-decoration: underline;"><span style="color: #f71717; text-decoration: underline;">Lưu ý:</span></span></em> <span style="color: #e91b1b;">Trong thời gian diễn ra chương trình khuyến mãi, thời gian giao hàng có thể kéo dài hơn so với dự kiến. Rất mong Quý khách thông cảm cho sự bất tiện này.</span></b></p>
+    <p><strong>Sản phẩm áp dụng:<span> </span></strong>Tất cả sản phẩm được giao dịch tại Website Supersports.</p>
+    <p><strong>Sản phẩm không áp dụng: </strong></p>
+    <ul>
+        <li> Đồ lót, đồ bơi, Phụ kiện,....</li>
+        <li> Không áp dụng cho các sản phẩm mua trực tiếp tại hệ thống cửa hàng của Supersports.</li>
+    </ul>
+    <p><strong>Thời gian đổi trả hàng: </strong>Trong vòng<span> </span><strong>30 ngày (đối với sản phẩm nguyên giá) </strong>và<strong> 10 ngày (đối với sản phẩm khuyến mãi) </strong>kể từ ngày khách hàng nhận được sản phẩm từ đơn vị vận chuyển.</p>
+</div>
+<br />
+<hr />
+<p class="text-center fw-bold fs-4">SẢN PHẨM TƯƠNG TỰ</p>
+<div class="banner">
+    <ul id="lightSlider">
+        @foreach (var a in ViewBag.products)
+        {
+            if (a.CatelogyId == Model.CatelogyId)
+            {
+                if (a.ProductID == Model.ProductID)
+                {
+                    continue;
+                }
+                <li class="item">
+                    <div class="box">
+                        <div class="slide-img">
+                            <img alt="img" src="~/image/@a.Image" />
+                            <div class="overlay">
+                                <a href="/Product/detail/@a.ProductID" class="buy-btn">Buy Now</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="detail-box">
+                        <div class="type">
+                            <a href="#">@a.ProductName</a>
+                            <span>@a.AvailabilityStatus</span>
+                            <a href="#" class="price">@a.Price đ</a>
+                        </div>
+
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</div>

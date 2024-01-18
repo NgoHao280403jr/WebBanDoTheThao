@@ -1,0 +1,174 @@
+﻿header {
+    border-bottom: 1px solid #949090;
+    height: auto;
+    position: relative;
+    z-index: 2; /* Sử dụng z-index lớn hơn so với banner */
+}
+
+    header ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 60px;
+    }
+
+.upperHeader {
+    font-size: 12px;
+    /*  background: #949090;*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 20px;
+    gap: 10px;
+}
+
+    .upperHeader .contact-icons {
+        display: flex;
+        gap: 20px;
+    }
+
+    .upperHeader .page-icon a {
+        background: #fff;
+        border-radius: 5%;
+        padding: 5px;
+        width: 15px !important;
+        height: 16px !important;
+        justify-content: center;
+        align-items: center;
+        transition: 0.3s;
+    }
+
+        .upperHeader .page-icon a:hover {
+            background: #3f3f3f;
+            color: #fff;
+        }
+
+footer .contact-icons {
+    display: flex;
+    gap: 40px;
+}
+
+footer .page-icon a {
+    background: #212529;
+    border-radius: 100%;
+    padding: 5px;
+    width: 15px !important;
+    height: 16px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+
+    footer .page-icon a:hover {
+        background: #3f3f3f;
+        color: #fff;
+    }
+
+.lowerHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+
+header .logo {
+    width: 100px;
+    height: 40px;
+    font-weight: 700;
+    background: url(../img/logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+header ul li a {
+    transition: 0.3s;
+    padding: 10px 0;
+    font-weight: 600;
+    position: relative;
+}
+
+    header ul li a:before {
+        content: "";
+        width: 0;
+        height: 5px;
+        position: absolute;
+        bottom: 0;
+        background-color: rgb(9, 55, 114);
+        transition: 0.3s;
+        left: 50%;
+    }
+
+.upper-item {
+    gap: 5px;
+    display: flex;
+    align-items: center;
+}
+
+    .upper-item header ul li a:hover {
+        color: rgb(251, 58, 103);
+    }
+
+.page-btn {
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 7px;
+    font-weight: 700;
+    background: rgb(251, 58, 103);
+    border: 2px solid rgb(251, 58, 103);
+    transition: 0.3s;
+    margin-top: 40px;
+    display: block;
+    width: auto;
+    text-align: center;
+}
+
+    .page-btn:hover {
+        background: #fff;
+        color: rgb(251, 58, 103);
+    }
+
+header ul li a:hover:before {
+    width: 100%;
+    left: 0;
+}
+
+header .login a {
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 7px;
+    font-weight: 700;
+    background: rgb(251, 58, 103);
+    border: 2px solid rgb(251, 58, 103);
+    transition: 0.3s;
+}
+
+    header .login a:hover {
+        background: #fff;
+        color: rgb(251, 58, 103);
+    }
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: all 0.5s ease-in-out;
+}
+
+    header.sticky {
+        background: #fff;
+        opacity: 0.9;
+    }
+
+        header.sticky #main-menu a {
+            color: #000000;
+        }
+
+#baner {
+    position: relative; /* Đảm bảo phần tử có position relative hoặc absolute */
+    z-index: 1;
+}

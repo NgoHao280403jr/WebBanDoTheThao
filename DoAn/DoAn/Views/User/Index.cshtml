@@ -1,0 +1,51 @@
+﻿@model List<DoAn.Models.User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<h1 class="col d-flex justify-content-center">
+    THÔNG TIN TẤT CẢ CÁC USER
+</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Image
+        </th>
+        <th>
+            Id
+        </th>
+        <th>
+            Name User
+        </th>
+        <th>
+            Password đã mã hóa
+        </th>
+        <th>
+            Địa chỉ Email
+        </th>
+        <th>Role</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        if (item.Role == "user")
+        {
+            <tr>
+                <td><img src="~/image/user.jpg" alt="..." style="width:50px"></td>
+                <td>@item.UserId</td>
+                <td>@item.Username</td>
+                <td>@item.Password</td>
+                <td>@item.EmailAddress</td>
+                <td>@item.Role</td>
+                <td>
+                    <a href="/User/Delete/@item.UserId" class="btn btn-outline-danger">Delete</a>
+                    <a href="/User/Edit/@item.UserId" class="btn btn-outline-warning">Sửa</a>
+                </td>
+            </tr>
+            
+        }
+
+    }
+    <tr>
+</table>
+
+
